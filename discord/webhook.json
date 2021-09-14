@@ -1,245 +1,245 @@
 {
-	"$schema": "https://json-schema.org/draft/2020-12/schema",
-	"title": "Discord Webhook",
-	"description": "Discord Webhook JSON Schema",
-	"type": "object",
-	"definitions": {
-		"url": {
-			"type": "string",
-			"pattern": "^https?://"
-		},
-		"id": {
-			"type": "string",
-			"pattern": "^\\d+$"
-		}
-	},
-	"additionalProperties": false,
-	"anyOf": [
-		{
-			"required": ["content"]
-		},
-		{
-			"required": ["embeds"]
-		}
-	],
-	"properties": {
-		"$schema": {
-			"description": "Allow $schema because additionalProperties is false",
-			"type": "string"
-		},
-		"content": {
-			"description": "The message contents\nMax is 2000 characters",
-			"type": "string",
-			"maxLength": 2000
-		},
-		"username": {
-			"description": "Override the default username of the webhook",
-			"type": "string",
-			"pattern": "^((?!(c|C)(l|L)(y|Y)(d|D)(e|E)).)*$",
-			"maxLength": 80
-		},
-		"avatar_url": {
-			"description": "Override the default avatar of the webhook",
-			"$ref": "#/definitions/url"
-		},
-		"tts": {
-			"description": "Whether or not this message will play in TTS\nDefault is false",
-			"type": "boolean"
-		},
-		"embeds": {
-			"description": "Embedded rich content\nMax is 6000 characters",
-			"type": "array",
-			"items": {
-				"type": "object",
-				"additionalProperties": false,
-				"properties": {
-					"title": {
-						"description": "Title of embed\nMax is 256 characters",
-						"type": "string",
-						"maxLength": 256
-					},
-					"description": {
-						"description": "Description of embed\nMax is 4096 characters",
-						"type": "string",
-						"maxLength": 4096
-					},
-					"url": {
-						"description": "URL of embed\nOnly support http / https",
-						"$ref": "#/definitions/url"
-					},
-					"timestamp": {
-						"description": "Timestamp of embed content\nISO8601 Timestamp",
-						"type": "string",
-						"format": "date-time"
-					},
-					"color": {
-						"description": "Color code of the embed\nOnly support color in decimal",
-						"type": "integer",
-						"minimum": 0,
-						"maximum": 16777215
-					},
-					"footer": {
-						"description": "Footer information",
-						"type": "object",
-						"additionalProperties": false,
-						"required": ["text"],
-						"properties": {
-							"text": {
-								"description": "Footer text\nMax is 2048 characters",
-								"type": "string",
-								"maxLength": 2048
-							},
-							"icon_url": {
-								"description": "URL of footer icon\nOnly support http / https",
-								"$ref": "#/definitions/url"
-							}
-						}
-					},
-					"image": {
-						"description": "Image information",
-						"type": "object",
-						"additionalProperties": false,
-						"required": ["url"],
-						"properties": {
-							"url": {
-								"description": "Source url of image\nOnly support http / https",
-								"$ref": "#/definitions/url"
-							}
-						}
-					},
-					"thumbnail": {
-						"description": "Thumbnail information",
-						"type": "object",
-						"additionalProperties": false,
-						"required": ["url"],
-						"properties": {
-							"url": {
-								"description": "Source url of thumbnail\nOnly support http / https",
-								"$ref": "#/definitions/url"
-							}
-						}
-					},
-					"author": {
-						"description": "Author information",
-						"type": "object",
-						"additionalProperties": false,
-						"required": ["name"],
-						"properties": {
-							"name": {
-								"description": "Name of author\nMax is 256 characters",
-								"type": "string",
-								"maxLength": 256
-							},
-							"url": {
-								"description": "URL of author\nOnly support http / https",
-								"$ref": "#/definitions/url"
-							},
-							"icon_url": {
-								"description": "URL of author icon\nOnly support http / https",
-								"$ref": "#/definitions/url"
-							}
-						}
-					},
-					"fields": {
-						"description": "Fields information",
-						"type": "array",
-						"items": {
-							"description": "Fields information",
-							"type": "object",
-							"additionalProperties": false,
-							"required": ["name", "value"],
-							"properties": {
-								"name": {
-									"description": "Name of the field\nREQUIRED Max is 256",
-									"type": "string",
-									"minLength": 1,
-									"maxLength": 256
-								},
-								"value": {
-									"description": "Value of the field\nREQUIRED Max is 1024",
-									"type": "string",
-									"minLength": 1,
-									"maxLength": 1024
-								},
-								"inline": {
-									"description": "Whether or not this field should display inline",
-									"type": "boolean"
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		"allowed_mentions": {
-			"description": "Allowed mentions for the message",
-			"type": "object",
-			"minProperties": 1,
-			"additionalProperties": false,
-			"allOf": [
-				{
-					"if": {
-						"properties": {
-							"parse": {
-								"not": {
-									"contains": {
-										"const": "roles"
-									}
-								}
-							}
-						}
-					},
-					"then": {
-						"properties": {
-							"roles": {
-								"description": "Array of role_ids to mention\nMax is 100 of role_ids",
-								"type": ["array", "null"],
-								"uniqueItems": true,
-								"maxItems": 100,
-								"items": {
-									"$ref": "#/definitions/id"
-								}
-							}
-						}
-					}
-				},
-				{
-					"if": {
-						"properties": {
-							"parse": {
-								"not": {
-									"contains": {
-										"const": "users"
-									}
-								}
-							}
-						}
-					},
-					"then": {
-						"properties": {
-							"users": {
-								"description": "Array of user_ids to mention\nMax is 100 of user_ids",
-								"type": ["array", "null"],
-								"uniqueItems": true,
-								"maxItems": 100,
-								"items": {
-									"$ref": "#/definitions/id"
-								}
-							}
-						}
-					}
-				}
-			],
-			"properties": {
-				"parse": {
-					"description": "An array of allowed mention types to parse from the content.",
-					"type": "array",
-					"items": {
-						"type": "string",
-						"enum": ["roles", "users", "everyone"]
-					}
-				}
-			}
-		}
-	}
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Discord Webhook",
+  "description": "Discord Webhook JSON Schema",
+  "type": "object",
+  "definitions": {
+    "url": {
+      "type": "string",
+      "pattern": "^https?://"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^\\d+$"
+    }
+  },
+  "additionalProperties": false,
+  "anyOf": [
+    {
+      "required": ["content"]
+    },
+    {
+      "required": ["embeds"]
+    }
+  ],
+  "properties": {
+    "$schema": {
+      "description": "Allow $schema because additionalProperties is false",
+      "type": "string"
+    },
+    "content": {
+      "description": "The message contents\nMax is 2000 characters",
+      "type": "string",
+      "maxLength": 2000
+    },
+    "username": {
+      "description": "Override the default username of the webhook",
+      "type": "string",
+      "pattern": "^((?!(c|C)(l|L)(y|Y)(d|D)(e|E)).)*$",
+      "maxLength": 80
+    },
+    "avatar_url": {
+      "description": "Override the default avatar of the webhook",
+      "$ref": "#/definitions/url"
+    },
+    "tts": {
+      "description": "Whether or not this message will play in TTS\nDefault is false",
+      "type": "boolean"
+    },
+    "embeds": {
+      "description": "Embedded rich content\nMax is 6000 characters",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "title": {
+            "description": "Title of embed\nMax is 256 characters",
+            "type": "string",
+            "maxLength": 256
+          },
+          "description": {
+            "description": "Description of embed\nMax is 4096 characters",
+            "type": "string",
+            "maxLength": 4096
+          },
+          "url": {
+            "description": "URL of embed\nOnly support http / https",
+            "$ref": "#/definitions/url"
+          },
+          "timestamp": {
+            "description": "Timestamp of embed content\nISO8601 Timestamp",
+            "type": "string",
+            "format": "date-time"
+          },
+          "color": {
+            "description": "Color code of the embed\nOnly support color in decimal",
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 16777215
+          },
+          "footer": {
+            "description": "Footer information",
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["text"],
+            "properties": {
+              "text": {
+                "description": "Footer text\nMax is 2048 characters",
+                "type": "string",
+                "maxLength": 2048
+              },
+              "icon_url": {
+                "description": "URL of footer icon\nOnly support http / https",
+                "$ref": "#/definitions/url"
+              }
+            }
+          },
+          "image": {
+            "description": "Image information",
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["url"],
+            "properties": {
+              "url": {
+                "description": "Source url of image\nOnly support http / https",
+                "$ref": "#/definitions/url"
+              }
+            }
+          },
+          "thumbnail": {
+            "description": "Thumbnail information",
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["url"],
+            "properties": {
+              "url": {
+                "description": "Source url of thumbnail\nOnly support http / https",
+                "$ref": "#/definitions/url"
+              }
+            }
+          },
+          "author": {
+            "description": "Author information",
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["name"],
+            "properties": {
+              "name": {
+                "description": "Name of author\nMax is 256 characters",
+                "type": "string",
+                "maxLength": 256
+              },
+              "url": {
+                "description": "URL of author\nOnly support http / https",
+                "$ref": "#/definitions/url"
+              },
+              "icon_url": {
+                "description": "URL of author icon\nOnly support http / https",
+                "$ref": "#/definitions/url"
+              }
+            }
+          },
+          "fields": {
+            "description": "Fields information",
+            "type": "array",
+            "items": {
+              "description": "Fields information",
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["name", "value"],
+              "properties": {
+                "name": {
+                  "description": "Name of the field\nREQUIRED Max is 256",
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 256
+                },
+                "value": {
+                  "description": "Value of the field\nREQUIRED Max is 1024",
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 1024
+                },
+                "inline": {
+                  "description": "Whether or not this field should display inline",
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "allowed_mentions": {
+      "description": "Allowed mentions for the message",
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "parse": {
+                "not": {
+                  "contains": {
+                    "const": "roles"
+                  }
+                }
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "roles": {
+                "description": "Array of role_ids to mention\nMax is 100 of role_ids",
+                "type": ["array", "null"],
+                "uniqueItems": true,
+                "maxItems": 100,
+                "items": {
+                  "$ref": "#/definitions/id"
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "parse": {
+                "not": {
+                  "contains": {
+                    "const": "users"
+                  }
+                }
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "users": {
+                "description": "Array of user_ids to mention\nMax is 100 of user_ids",
+                "type": ["array", "null"],
+                "uniqueItems": true,
+                "maxItems": 100,
+                "items": {
+                  "$ref": "#/definitions/id"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "properties": {
+        "parse": {
+          "description": "An array of allowed mention types to parse from the content.",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["roles", "users", "everyone"]
+          }
+        }
+      }
+    }
+  }
 }
