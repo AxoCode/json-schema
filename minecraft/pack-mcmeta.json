@@ -12,7 +12,7 @@
   "additionalProperties": false,
   "required": ["pack"],
   "properties": {
-    "$schmea": {
+    "$schema": {
       "description": "Allow $schema because additionalProperties is false",
       "$ref": "#/definitions/string"
     },
