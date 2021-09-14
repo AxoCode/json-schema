@@ -1,5 +1,5 @@
 {
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$schema": "https://json-schema.org/draft-04/schema",
   "title": "Discord Webhook",
   "description": "Discord Webhook JSON Schema",
   "type": "object",
@@ -176,60 +176,6 @@
       "type": "object",
       "minProperties": 1,
       "additionalProperties": false,
-      "allOf": [
-        {
-          "if": {
-            "properties": {
-              "parse": {
-                "not": {
-                  "contains": {
-                    "const": "roles"
-                  }
-                }
-              }
-            }
-          },
-          "then": {
-            "properties": {
-              "roles": {
-                "description": "Array of role_ids to mention\nMax is 100 of role_ids",
-                "type": ["array", "null"],
-                "uniqueItems": true,
-                "maxItems": 100,
-                "items": {
-                  "$ref": "#/definitions/id"
-                }
-              }
-            }
-          }
-        },
-        {
-          "if": {
-            "properties": {
-              "parse": {
-                "not": {
-                  "contains": {
-                    "const": "users"
-                  }
-                }
-              }
-            }
-          },
-          "then": {
-            "properties": {
-              "users": {
-                "description": "Array of user_ids to mention\nMax is 100 of user_ids",
-                "type": ["array", "null"],
-                "uniqueItems": true,
-                "maxItems": 100,
-                "items": {
-                  "$ref": "#/definitions/id"
-                }
-              }
-            }
-          }
-        }
-      ],
       "properties": {
         "parse": {
           "description": "An array of allowed mention types to parse from the content.",
@@ -237,6 +183,24 @@
           "items": {
             "type": "string",
             "enum": ["roles", "users", "everyone"]
+          }
+        },
+        "roles": {
+          "description": "Array of role_ids to mention\nMax is 100 of role_ids\nMutually exclusive with parse roles",
+          "type": ["array", "null"],
+          "uniqueItems": true,
+          "maxItems": 100,
+          "items": {
+            "$ref": "#/definitions/id"
+          }
+        },
+        "users": {
+          "description": "Array of user_ids to mention\nMax is 100 of user_ids\nMutually exclusive with parse users",
+          "type": ["array", "null"],
+          "uniqueItems": true,
+          "maxItems": 100,
+          "items": {
+            "$ref": "#/definitions/id"
           }
         }
       }
