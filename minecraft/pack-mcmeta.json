@@ -7,25 +7,6 @@
     "string": {
       "type": "string",
       "default": ""
-    },
-    "language": {
-      "description": "Language code for a language, corresponding to a .json file with the same name in the folder\nassets/namespace/lang.",
-      "type": "object",
-      "properties": {
-        "name": {
-          "description": "The full name of the language",
-          "$ref": "#/definitions/string"
-        },
-        "region": {
-          "description": "The country or region name",
-          "$ref": "#/definitions/string"
-        },
-        "bidirectional": {
-          "description": "If true, the language reads right to left.",
-          "type": "boolean",
-          "default": false
-        }
-      }
     }
   },
   "additionalProperties": false,
@@ -39,7 +20,7 @@
       "description": "Holds the resource / data pack information",
       "type": "object",
       "additionalProperties": false,
-      "required": ["pack_format","description"],
+      "required": ["pack_format", "description"],
       "anyOf": [
         {
           "if": {
@@ -70,7 +51,7 @@
           "description": "Pack version.\nIf this number does not match the current required number, the resource / data pack displays an error and requires additional confirmation to load the pack\n1 for 1.6.1–1.8.9\n2 for 1.9–1.10.2\n3 for 1.11–1.12.2\n4 for 1.13–1.14.4\n5 for 1.15–1.16.1\n6 for 1.16.2–1.16.5\n7 for 1.17",
           "type": "integer",
           "default": 7,
-          "enum": [1,2,3,4,5,6,7]
+          "enum": [1, 2, 3, 4, 5, 6, 7]
         },
         "description": {
           "type": ["array", "object", "string"]
@@ -81,7 +62,23 @@
       "description": "Contains additional languages to add to the language menu\nResource pack ONLY",
       "type": "object",
       "additionalProperties": {
-        "$ref": "#/definitions/language"
+        "description": "Language code for a language, corresponding to a .json file with the same name in the folder\nassets/namespace/lang.",
+        "type": "object",
+        "properties": {
+          "name": {
+            "description": "The full name of the language",
+            "$ref": "#/definitions/string"
+          },
+          "region": {
+            "description": "The country or region name",
+            "$ref": "#/definitions/string"
+          },
+          "bidirectional": {
+            "description": "If true, the language reads right to left.",
+            "type": "boolean",
+            "default": false
+          }
+        }
       }
     }
   }
