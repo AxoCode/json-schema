@@ -4,12 +4,20 @@
   "description": "Discord Webhook JSON Schema",
   "type": "object",
   "definitions": {
-    "url": {
+    "string": {
       "type": "string",
+      "default": ""
+    },
+    "boolean": {
+      "type": "boolean",
+      "default": false
+    },
+    "url": {
+      "$ref": "#/definitions/string",
       "pattern": "^https?://"
     },
     "id": {
-      "type": "string",
+      "$ref": "#/definitions/string",
       "pattern": "^\\d+$"
     }
   },
@@ -25,16 +33,16 @@
   "properties": {
     "$schema": {
       "description": "Allow $schema because additionalProperties is false",
-      "type": "string"
+      "$ref": "#/definitions/string"
     },
     "content": {
       "description": "The message contents\nMax is 2000 characters",
-      "type": "string",
+      "$ref": "#/definitions/string",
       "maxLength": 2000
     },
     "username": {
-      "description": "Override the default username of the webhook",
-      "type": "string",
+      "description": "Override the default username of the webhook\nName cannot contain \"clyde\"",
+      "$ref": "#/definitions/string",
       "pattern": "^((?!(c|C)(l|L)(y|Y)(d|D)(e|E)).)*$",
       "maxLength": 80
     },
@@ -44,7 +52,7 @@
     },
     "tts": {
       "description": "Whether or not this message will play in TTS\nDefault is false",
-      "type": "boolean"
+      "$ref": "#/definitions/boolean"
     },
     "embeds": {
       "description": "Embedded rich content\nMax is 6000 characters",
@@ -56,11 +64,13 @@
           "title": {
             "description": "Title of embed\nMax is 256 characters",
             "type": "string",
+            "default": "",
             "maxLength": 256
           },
           "description": {
             "description": "Description of embed\nMax is 4096 characters",
             "type": "string",
+            "default": "",
             "maxLength": 4096
           },
           "url": {
@@ -70,11 +80,13 @@
           "timestamp": {
             "description": "Timestamp of embed content\nISO8601 Timestamp",
             "type": "string",
+            "default": "",
             "format": "date-time"
           },
           "color": {
-            "description": "Color code of the embed\nOnly support color in decimal",
+            "description": "Color code of the embed\nOnly support color in decimal\nDefault is 2105893",
             "type": "integer",
+            "default": 2105893,
             "minimum": 0,
             "maximum": 16777215
           },
@@ -87,6 +99,7 @@
               "text": {
                 "description": "Footer text\nMax is 2048 characters",
                 "type": "string",
+                "default": "",
                 "maxLength": 2048
               },
               "icon_url": {
@@ -127,7 +140,7 @@
             "properties": {
               "name": {
                 "description": "Name of author\nMax is 256 characters",
-                "type": "string",
+                "$ref": "#/definitions/string",
                 "maxLength": 256
               },
               "url": {
@@ -151,19 +164,19 @@
               "properties": {
                 "name": {
                   "description": "Name of the field\nREQUIRED Max is 256",
-                  "type": "string",
+                  "$ref": "#/definitions/string",
                   "minLength": 1,
                   "maxLength": 256
                 },
                 "value": {
                   "description": "Value of the field\nREQUIRED Max is 1024",
-                  "type": "string",
+                  "$ref": "#/definitions/string",
                   "minLength": 1,
                   "maxLength": 1024
                 },
                 "inline": {
-                  "description": "Whether or not this field should display inline",
-                  "type": "boolean"
+                  "description": "Whether or not this field should display inline\nDefault is false",
+                  "$ref": "#/definitions/boolean"
                 }
               }
             }
@@ -180,6 +193,7 @@
         "parse": {
           "description": "An array of allowed mention types to parse from the content.",
           "type": "array",
+          "default": [],
           "items": {
             "type": "string",
             "enum": ["roles", "users", "everyone"]
@@ -188,6 +202,7 @@
         "roles": {
           "description": "Array of role_ids to mention\nMax is 100 of role_ids\nMutually exclusive with parse roles",
           "type": ["array", "null"],
+          "default": [],
           "uniqueItems": true,
           "maxItems": 100,
           "items": {
@@ -197,6 +212,7 @@
         "users": {
           "description": "Array of user_ids to mention\nMax is 100 of user_ids\nMutually exclusive with parse users",
           "type": ["array", "null"],
+          "default": [],
           "uniqueItems": true,
           "maxItems": 100,
           "items": {
