@@ -7,3 +7,7 @@ Execute Discord Webhook, official documentation can be seen [here](https://disco
 ### [minecraft/pack-mcmeta.json](minecraft/pack-mcmeta.json) ([Raw](https://raw.githubusercontent.com/barraIhsan/json-schema/master/minecraft/pack-mcmeta.json))
 
 Minecraft Pack Metadata, official documentation can be seen [here](https://minecraft.fandom.com/wiki/Resource_Pack#Pack_format)
+
+### [minecraft/json-text-format.json](minecraft/json-text-format.json) ([Raw](https://raw.githubusercontent.com/barraIhsan/json-schema/master/minecraft/json-text-format.json))
+
+Minecraft Raw JSON Text Format, official documentation can be seen [here](https://minecraft.fandom.com/wiki/Raw_JSON_text_format)
