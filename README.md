@@ -10,4 +10,4 @@ Minecraft Pack Metadata, official documentation can be seen [here](https://minec
 
 ### [minecraft/json-text-format.json](minecraft/json-text-format.json) ([Raw](https://raw.githubusercontent.com/barraIhsan/json-schema/master/minecraft/json-text-format.json))
 
-Minecraft Raw JSON Text Format, official documentation can be seen [here](https://minecraft.fandom.com/wiki/Raw_JSON_text_format)
+**INCOMPLETE** Minecraft Raw JSON Text Format, official documentation can be seen [here](https://minecraft.fandom.com/wiki/Raw_JSON_text_format)
