@@ -21,37 +21,33 @@
       "type": "object",
       "additionalProperties": false,
       "required": ["pack_format", "description"],
-      "anyOf": [
-        {
-          "if": {
-            "properties": {
-              "description": {
-                "type": "string"
-              }
-            }
-          },
-          "then": {
-            "properties": {
-              "description": {
-                "description": "Text shown below the pack name in the resource / data pack menu.\nThe text is shown on two lines.\nIf the text is too long it is truncated."
-              }
-            }
-          },
-          "else": {
-            "properties": {
-              "description": {
-                "description": "Contains a raw JSON text object that is shown instead as the pack description in the resource / data pack menu"
-              }
-            }
+      "if": {
+        "properties": {
+          "description": {
+            "type": "string"
           }
         }
-      ],
+      },
+      "then": {
+        "properties": {
+          "description": {
+            "description": "Text shown below the pack name in the resource / data pack menu.\nThe text is shown on two lines.\nIf the text is too long it is truncated."
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "description": {
+            "description": "Contains a raw JSON text object that is shown instead as the pack description in the resource / data pack menu"
+          }
+        }
+      },
       "properties": {
         "pack_format": {
-          "description": "Pack version.\nIf this number does not match the current required number, the resource / data pack displays an error and requires additional confirmation to load the pack\n1 for 1.6.1–1.8.9\n2 for 1.9–1.10.2\n3 for 1.11–1.12.2\n4 for 1.13–1.14.4\n5 for 1.15–1.16.1\n6 for 1.16.2–1.16.5\n7 for 1.17",
+          "description": "Pack version.\nIf this number does not match the current required number, the resource / data pack displays an error and requires additional confirmation to load the pack\n1 for 1.6.1–1.8.9\n2 for 1.9–1.10.2\n3 for 1.11–1.12.2\n4 for 1.13–1.14.4\n5 for 1.15–1.16.1\n6 for 1.16.2–1.16.5\n7 for 1.17\n8 for 1.18",
           "type": "integer",
-          "default": 7,
-          "enum": [1, 2, 3, 4, 5, 6, 7]
+          "default": 8,
+          "enum": [1, 2, 3, 4, 5, 6, 7, 8]
         },
         "description": {
           "type": ["array", "object", "string"]
