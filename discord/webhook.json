@@ -2,7 +2,6 @@
   "$schema": "https://json-schema.org/draft-07/schema",
   "title": "Discord Webhook",
   "description": "Discord Webhook JSON Schema",
-  "type": "object",
   "definitions": {
     "string": {
       "type": "string",
@@ -21,6 +20,7 @@
       "pattern": "^\\d+$"
     }
   },
+  "type": "object",
   "additionalProperties": false,
   "anyOf": [
     {
@@ -63,14 +63,12 @@
         "properties": {
           "title": {
             "description": "Title of embed\nMax is 256 characters",
-            "type": "string",
-            "default": "",
+            "$ref": "#/definitions/string",
             "maxLength": 256
           },
           "description": {
             "description": "Description of embed\nMax is 4096 characters",
-            "type": "string",
-            "default": "",
+            "$ref": "#/definitions/string",
             "maxLength": 4096
           },
           "url": {
@@ -79,12 +77,11 @@
           },
           "timestamp": {
             "description": "Timestamp of embed content\nISO8601 Timestamp",
-            "type": "string",
-            "default": "",
+            "$ref": "#/definitions/string",
             "format": "date-time"
           },
           "color": {
-            "description": "Color code of the embed\nOnly support color in decimal\nDefault is 2105893",
+            "description": "Color code of the embed\nOnly support color in decimal\nTo match embed background color, use 3092790\nDefault is 2105893",
             "type": "integer",
             "default": 2105893,
             "minimum": 0,

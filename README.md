@@ -15,3 +15,7 @@ Minecraft Sounds, official documentation can be seen [here](https://minecraft.fa
 ### [minecraft/json-text-format.json](minecraft/json-text-format.json) ([Raw](https://raw.githubusercontent.com/barraIhsan/json-schema/master/minecraft/json-text-format.json))
 
 **INCOMPLETE** Minecraft Raw JSON Text Format, official documentation can be seen [here](https://minecraft.fandom.com/wiki/Raw_JSON_text_format)
+
+### [discord/send-webhook.json](discord/send-webhook.json) ([Raw](https://raw.githubusercontent.com/barraIhsan/json-schema/master/discord/send-webhook.json))
+
+Send Discord Webhook with My VSCode Extension, I will make and put the link to the extension when its available. Soon
